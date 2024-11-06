@@ -1,0 +1,14 @@
+digraph
+{
+    rankdir=TP
+
+        node014A7060[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 014A7060 | data: 50 | { left: 014A7000 | right: 014A6F40 }}"];
+    node014A7060 -> node014A7000[color="#0855F0"]
+    node014A7000[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 014A7000 | data: 30 | { left: 014A6E98 | right: 014A6F10 }}"];
+    node014A7000 -> node014A6E98[color="#0855F0"]
+    node014A6E98[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 014A6E98 | data: 12 | { left: 00000000 | right: 00000000 }}"];
+    node014A7000 -> node014A6F10[color="#0855F0"]
+    node014A6F10[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 014A6F10 | data: 40 | { left: 00000000 | right: 00000000 }}"];
+    node014A7060 -> node014A6F40[color="#0855F0"]
+    node014A6F40[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 014A6F40 | data: 70 | { left: 00000000 | right: 00000000 }}"];
+}
