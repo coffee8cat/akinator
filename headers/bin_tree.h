@@ -9,7 +9,7 @@
 
 struct node_t {
     int key;
-    void* data;
+    char data[32];
     node_t* left;
     node_t* right;
     node_t* prev;
@@ -17,9 +17,15 @@ struct node_t {
 
 
 node_t* new_node(int data, node_t* left, node_t* right);
-int add_node(node_t* node, int data);
+int find_node(node_t* node);
 int print_tree(node_t* node, FILE* stream);
 
 int tree_dtor(node_t* node);
+
+inline void clean_input_buff()
+{
+    while (getchar() != '\n')
+        continue;
+}
 
 #endif

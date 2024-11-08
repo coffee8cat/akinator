@@ -7,15 +7,18 @@ int main()
     if (html_stream == NULL)
         return -1;
 
-    node_t* root = new_node(50, NULL, NULL);
+    node_t* root = new_node(0, NULL, NULL);
     if (!root) {return -1;}
-    add_node(root, 30);
-    add_node(root, 70);
-    add_node(root, 40);
+    printf("got here\n");
+    root -> right = new_node(0, NULL, NULL);
+    root -> left  = new_node(0, NULL, NULL);
 
-    print_tree(root, stdout);
+    printf("got here\n");
+    (root -> right) -> left = new_node(0, NULL, NULL);
+
     tree_dump(root, html_stream, root);
-    add_node(root, 12);
+    find_node(root);
+
     tree_dump(root, html_stream, root);
 
     tree_dtor(root);

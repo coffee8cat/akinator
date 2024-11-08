@@ -12,24 +12,45 @@ node_t* new_node(int key, node_t* left, node_t* right)
     node -> left  = left;
     node -> right = right;
 
+    scanf("%s", node -> data);
+
     return node;
 }
 
-int add_node(node_t* node, int key)
+int find_node(node_t* node)
 {
-    node_t** temp = NULL;
-    if (node -> key < key) { temp = &node -> right; }
-    else                   { temp = &node -> left;  }
+    fprintf(stdout, "%s?\n", node -> data);
 
-    if (*temp) { add_node(*temp, key); }
+    char ans = 0;
+
+    node_t** temp = NULL;
+    while (true)
+    {
+        fscanf(stdin, "%c", &ans);
+        clean_input_buff();
+        if      (ans == 'Y') { temp = &node -> right; break; }
+        else if (ans == 'N') { temp = &node -> left;  break; }
+        else {printf("Unknown symbol: %c(%d)\nOnly Y and N are accepted as answers\n", ans, ans);}
+    }
+
+    printf("temp: %p", *temp);
+
+    /*if ((*temp) -> left == NULL && ((*temp) -> right) == NULL)
+    {
+        printf("It is %s, right?\n", (*temp) -> data);
+        return 0;
+    }*/
+    if (*temp) { find_node(*temp); }
     else
     {
-        *temp = new_node(key, NULL, NULL);
+        printf("No such item yet\n"
+               "What is it?\n");
+        *temp = new_node(0, NULL, NULL);
         if (!*temp) { fprintf(stderr, "ERROR: ADDITION FIALED on node [%p]\n", node);  return -1;}
         (*temp) -> prev = node;
     }
 
-    return 0;
+    return -1;
 }
 
 int print_tree(node_t* node, FILE* stream)
