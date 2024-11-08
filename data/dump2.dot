@@ -2,13 +2,13 @@ digraph
 {
     rankdir=TP
 
-        node014A7060[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 014A7060 | data: 50 | { left: 014A7000 | right: 014A6F40 }}"];
-    node014A7060 -> node014A7000[color="#0855F0"]
-    node014A7000[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 014A7000 | data: 30 | { left: 014A6E98 | right: 014A6F10 }}"];
-    node014A7000 -> node014A6E98[color="#0855F0"]
-    node014A6E98[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 014A6E98 | data: 12 | { left: 00000000 | right: 00000000 }}"];
-    node014A7000 -> node014A6F10[color="#0855F0"]
-    node014A6F10[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 014A6F10 | data: 40 | { left: 00000000 | right: 00000000 }}"];
-    node014A7060 -> node014A6F40[color="#0855F0"]
-    node014A6F40[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 014A6F40 | data: 70 | { left: 00000000 | right: 00000000 }}"];
+        node01481240[shape=record,style="rounded,filled",fillcolor="#BF62FC",label="{ ptr: 01481240 | key: 50 | prev: 00000000| { left: 01481260 | right: 01481280 }}"];
+    node01481240 -> node01481260[color="#0855F0"]
+    node01481260[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 01481260 | key: 30 | prev: 01481240 | { left: 01489358 | right: 01488128 }}"];
+    node01481260 -> node01489358[color="#0855F0"]
+    node01489358[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 01489358 | key: 12 | prev: 01481260 | { left: 00000000 | right: 00000000 }}"];
+    node01481260 -> node01488128[color="#0855F0"]
+    node01488128[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 01488128 | key: 40 | prev: 01481260 | { left: 00000000 | right: 00000000 }}"];
+    node01481240 -> node01481280[color="#0855F0"]
+    node01481280[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 01481280 | key: 70 | prev: 01481240 | { left: 00000000 | right: 00000000 }}"];
 }

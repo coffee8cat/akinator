@@ -1,4 +1,5 @@
 #include "bin_tree.h"
+#include "tree_dump.h"
 
 int main()
 {
@@ -13,9 +14,9 @@ int main()
     add_node(root, 40);
 
     print_tree(root, stdout);
-    tree_dump(root, html_stream);
+    tree_dump(root, html_stream, root);
     add_node(root, 12);
-    tree_dump(root, html_stream);
+    tree_dump(root, html_stream, root);
 
     tree_dtor(root);
 
