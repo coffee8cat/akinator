@@ -1,0 +1,14 @@
+digraph
+{
+    rankdir=TP
+
+        node00ACA138[shape=record,style="rounded,filled",fillcolor="#BF62FC",label="{ ptr: 00ACA138 | key: 0 | data: animal| prev: 00000000| { left: 00ACA218 | right: 00ACA170 }}"];
+    node00ACA138 -> node00ACA218[color="#0855F0"]
+    node00ACA218[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 00ACA218 | key: 0 | data: unknown| prev: 00ACA138 | { left: 00000000 | right: 00000000 }}"];
+    node00ACA138 -> node00ACA170[color="#0855F0"]
+    node00ACA170[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 00ACA170 | key: 0 | data: has a tail| prev: 00ACA138 | { left: 00ACA1E0 | right: 00ACA1A8 }}"];
+    node00ACA170 -> node00ACA1E0[color="#0855F0"]
+    node00ACA1E0[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 00ACA1E0 | key: 0 | data: ded| prev: 00ACA170 | { left: 00000000 | right: 00000000 }}"];
+    node00ACA170 -> node00ACA1A8[color="#0855F0"]
+    node00ACA1A8[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 00ACA1A8 | key: 0 | data: poltorashka| prev: 00ACA170 | { left: 00000000 | right: 00000000 }}"];
+}

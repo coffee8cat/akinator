@@ -7,17 +7,11 @@ int main()
     if (html_stream == NULL)
         return -1;
 
-    node_t* root = new_node(0, NULL, NULL);
+    node_t* root = new_node(0, NULL, NULL, "root");
     if (!root) {return -1;}
-    printf("got here\n");
-    root -> right = new_node(0, NULL, NULL);
-    root -> left  = new_node(0, NULL, NULL);
 
-    printf("got here\n");
-    (root -> right) -> left = new_node(0, NULL, NULL);
-
-    tree_dump(root, html_stream, root);
-    find_node(root);
+    FILE* fp = fopen("data\\tree1.txt", "r");
+    read_tree(root, fp, html_stream);
 
     tree_dump(root, html_stream, root);
 

@@ -3,7 +3,7 @@
 
 FILE* prepare_to_dump()
 {
-    system("make clean_data\n");
+    system("make clean_dump\n");
     FILE* fp = fopen("list_dump.html", "w");
     if (fp == NULL)
     {
@@ -20,8 +20,8 @@ int tree_dump(node_t* root, FILE* html_stream, node_t* curr)
     static size_t dump_counter = 1;
     char dot_file_name[BUFSIZ] = "";
     char png_file_name[BUFSIZ] = "";
-    sprintf(dot_file_name, "data\\dump%d.dot", dump_counter);
-    sprintf(png_file_name, "data\\dump%d.png", dump_counter);
+    sprintf(dot_file_name, "dump\\dump%d.dot", dump_counter);
+    sprintf(png_file_name, "dump\\dump%d.png", dump_counter);
 
     FILE* fp = fopen(dot_file_name, "w");
     if (fp == NULL)

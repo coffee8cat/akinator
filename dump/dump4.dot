@@ -1,0 +1,6 @@
+digraph
+{
+    rankdir=TP
+
+        node00AC1240[shape=record,style="rounded,filled",fillcolor="#BF62FC",label="{ ptr: 00AC1240 | key: 0 | data: root| prev: 00000000| { left: 00000000 | right: 00000000 }}"];
+}

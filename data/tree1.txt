@@ -1,0 +1,9 @@
+{
+    "animal"
+    yes:{
+        "has a tail"
+        yes:{"poltorashka" }
+        no: {"ded" }
+    }
+    no:{"unknown" }
+}

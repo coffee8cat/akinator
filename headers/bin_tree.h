@@ -16,8 +16,10 @@ struct node_t {
 };
 
 
-node_t* new_node(int data, node_t* left, node_t* right);
+node_t* new_node(int key, node_t* left, node_t* right, char* data);
 int find_node(node_t* node);
+
+int read_tree(node_t* node, FILE* stream, FILE* html_stream);
 int print_tree(node_t* node, FILE* stream);
 
 int tree_dtor(node_t* node);

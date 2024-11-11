@@ -36,9 +36,9 @@ clean_exe:
 clean_obj:
 	rm $(OBJ_DIR)/*.o
 
-clean_data:
-	rm data/*.png
-	rm data/*.dot
+clean_dump:
+	rm dump/*.png
+	rm dump/*.dot
 
 clean:
 	rm $(BUILD_DIR)
