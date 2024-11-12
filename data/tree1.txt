@@ -3,7 +3,7 @@
     yes:{
         "has a tail"
         yes:{"poltorashka" }
-        no: {"ded" }
+        no: {"fish" }
     }
     no:{"unknown" }
 }

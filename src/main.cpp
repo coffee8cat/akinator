@@ -11,10 +11,11 @@ int main()
     if (!root) {return -1;}
 
     FILE* fp = fopen("data\\tree1.txt", "r");
-    read_tree(root, fp, html_stream);
+    read_tree(&root, fp, html_stream);
 
     tree_dump(root, html_stream, root);
 
+    find_node(root, html_stream);
     tree_dtor(root);
 
     return 0;

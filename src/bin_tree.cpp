@@ -17,7 +17,16 @@ node_t* new_node(int key, node_t* left, node_t* right, char* data)
     return node;
 }
 
-int find_node(node_t* node)
+int fix_parents(node_t* node)
+{
+    assert(node);
+    if (node -> right) {(node -> right) -> parent = node;}
+    if (node -> left)  {(node -> left) ->  parent = node;}
+
+    return 0;
+}
+
+int find_node(node_t* node, FILE* html_stream)
 {
     fprintf(stdout, "%s?\n", node -> data);
 
@@ -33,16 +42,58 @@ int find_node(node_t* node)
         else {printf("Unknown symbol: %c(%d)\nOnly Y and N are accepted as answers\n", ans, ans);}
     }
 
-    printf("temp: %p", *temp);
+    printf("temp: %p\n", *temp);
 
     if (*temp)
     {
         if ((*temp) -> left == NULL && ((*temp) -> right) == NULL)
         {
             printf("It is %s, right?\n", (*temp) -> data);
+            while (true)
+            {
+                fscanf(stdin, "%c", &ans);
+                clean_input_buff();
+                if (!(ans == 'Y' || ans == 'N'))
+                    printf("Unknown symbol: %c(%d)\nOnly Y and N are accepted as answers\n", ans, ans);
+                else
+                    break;
+            }
+            if (ans == 'N')
+            {
+                //change_and_add_node()
+                printf("What was it?\n");
+                char new_label[32] = {};
+                scanf("%s", new_label);
+
+                printf("what is the difference between %s and %s?(Enter the question)\n"
+                       "(True for %s, false for %s)\n",
+                       new_label, (*temp) -> data, new_label, (*temp) -> data);
+
+                char question[32] = {};
+                scanf("%s", question);
+
+                node_t* question_node = new_node(0, NULL, NULL, question);
+                node_t* label_node    = new_node(0, NULL, NULL, new_label);
+
+                question_node -> right = label_node;
+                question_node -> left  = *temp;
+
+                node_t* parent = (*temp) -> parent;
+
+                *temp = question_node;
+
+                fix_parents(parent);
+                fix_parents(question_node);
+
+                tree_dump(node, html_stream, node);
+            }
             return 0;
         }
-        find_node(*temp);
+        else
+        {
+            find_node(*temp, html_stream);
+            return 0;
+        }
     }
     else
     {
@@ -50,18 +101,18 @@ int find_node(node_t* node)
                "What is it?\n");
         *temp = new_node(0, NULL, NULL, "");
         if (!*temp) { fprintf(stderr, "ERROR: ADDITION FIALED on node [%p]\n", node);  return -1;}
-        (*temp) -> prev = node;
+        (*temp) -> parent = node;
     }
 
     return -1;
 }
 
-int read_tree(node_t* node, FILE* stream, FILE* html_stream)
+int read_tree(node_t** node, FILE* stream, FILE* html_stream)
 {
     assert(stream);
     char ch = 0;
     fscanf(stream, " %c", &ch);
-    printf("ch: %c\nnode : %p\n", ch, node);
+    printf("ch: %c\nnode : %p\n", ch, *node);
     switch (ch)
     {
         case '{':
@@ -69,7 +120,7 @@ int read_tree(node_t* node, FILE* stream, FILE* html_stream)
             char label[32] = {};
             fscanf(stream, " \"%[^\"]\"", label);
             printf("%s\n", label);
-            node = new_node(0, NULL, NULL, label);
+            *node = new_node(0, NULL, NULL, label);
             read_tree(node, stream, html_stream);
             break;
         }
@@ -82,10 +133,10 @@ int read_tree(node_t* node, FILE* stream, FILE* html_stream)
             char label[32] = {};
             fscanf(stream, " \"%[^\"]\"", label);
             printf("%s\n", label);
-            node -> right = new_node(0, NULL, NULL, label);
-            (node -> right) -> prev = node;
+            (*node) -> right = new_node(0, NULL, NULL, label);
+            ((*node) -> right) -> parent = *node;
 
-            read_tree(node -> right, stream, html_stream);
+            read_tree(&((*node) -> right), stream, html_stream);
         }
         case 'n':
         {
@@ -96,10 +147,10 @@ int read_tree(node_t* node, FILE* stream, FILE* html_stream)
             char label[32] = {};
             fscanf(stream, " \"%[^\"]\"", label);
             printf("%s\n", label);
-            node -> left = new_node(0, NULL, NULL, label);
-            (node -> left) -> prev = node;
+            (*node) -> left = new_node(0, NULL, NULL, label);
+            ((*node) -> left) -> parent = *node;
 
-            read_tree(node -> left, stream, html_stream);
+            read_tree(&((*node) -> left), stream, html_stream);
             break;
         }
         case '}': {return 0;}
@@ -107,8 +158,8 @@ int read_tree(node_t* node, FILE* stream, FILE* html_stream)
     }
 
 
-    tree_dump(node, html_stream, node);
-    print_tree(node, stdout);
+    tree_dump(*node, html_stream, *node);
+    print_tree(*node, stdout);
     return 0;
 }
 

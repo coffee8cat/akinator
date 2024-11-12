@@ -82,13 +82,13 @@ int write_node_info(node_t* node, FILE* fp, node_t* curr)
 
     if (node == curr)
     {
-        fprintf(fp, "    node%p[shape=record,style=\"rounded,filled\",fillcolor=\"#BF62FC\",label=\"{ ptr: %p | key: %d | data: %s| prev: %p| { left: %p | right: %p }}\"];\n",
-                node, node, node -> key, node -> data, node -> prev, node -> left, node -> right);
+        fprintf(fp, "    node%p[shape=record,style=\"rounded,filled\",fillcolor=\"#BF62FC\",label=\"{ ptr: %p | key: %d | data: %s| parent: %p| { left: %p | right: %p }}\"];\n",
+                node, node, node -> key, node -> data, node -> parent, node -> left, node -> right);
     }
     else
     {
-        fprintf(fp, "    node%p[shape=record,style=\"rounded,filled\",fillcolor=\"#39CCCC\",label=\"{ ptr: %p | key: %d | data: %s| prev: %p | { left: %p | right: %p }}\"];\n",
-                node, node, node -> key, node -> data, node -> prev, node -> left, node -> right);
+        fprintf(fp, "    node%p[shape=record,style=\"rounded,filled\",fillcolor=\"#39CCCC\",label=\"{ ptr: %p | key: %d | data: %s| parent: %p | { left: %p | right: %p }}\"];\n",
+                node, node, node -> key, node -> data, node -> parent, node -> left, node -> right);
     }
 
     if (node -> left)

@@ -12,14 +12,15 @@ struct node_t {
     char data[32];
     node_t* left;
     node_t* right;
-    node_t* prev;
+    node_t* parent;
 };
 
 
-node_t* new_node(int key, node_t* left, node_t* right, char* data);
-int find_node(node_t* node);
+node_t* new_node(int key, node_t* left, node_t* right, char* data);\
+int fix_parents(node_t* node);
+int find_node(node_t* node, FILE* html_stream);
 
-int read_tree(node_t* node, FILE* stream, FILE* html_stream);
+int read_tree(node_t** node, FILE* stream, FILE* html_stream);
 int print_tree(node_t* node, FILE* stream);
 
 int tree_dtor(node_t* node);
