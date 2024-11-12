@@ -1,9 +1,9 @@
 {
     "animal"
     yes:{
-        "has a tail"
-        yes:{"poltorashka" }
-        no: {"fish" }
+        "a cat"
+        yes:{"poltorashka"}
+        no: {"fish"}
     }
-    no:{"unknown" }
+    no:{"unknown"}
 }

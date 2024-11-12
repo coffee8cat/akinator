@@ -15,7 +15,8 @@ int main()
 
     tree_dump(root, html_stream, root);
 
-    find_node(root, html_stream);
+    //find_node(root, html_stream);
+    give_label_def(root);
     tree_dtor(root);
 
     return 0;

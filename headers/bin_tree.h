@@ -7,6 +7,8 @@
 #include <string.h>
 #include <assert.h>
 
+#include "my_stack.h"
+
 struct node_t {
     int key;
     char data[32];
@@ -19,6 +21,9 @@ struct node_t {
 node_t* new_node(int key, node_t* left, node_t* right, char* data);\
 int fix_parents(node_t* node);
 int find_node(node_t* node, FILE* html_stream);
+
+int give_label_def(node_t* root);
+node_t* node_label_search(node_t* node, char* label);
 
 int read_tree(node_t** node, FILE* stream, FILE* html_stream);
 int print_tree(node_t* node, FILE* stream);

@@ -107,6 +107,74 @@ int find_node(node_t* node, FILE* html_stream)
     return -1;
 }
 
+int give_label_def(node_t* root)
+{
+    assert(root);
+
+    char label[32] = {};
+    scanf("%s", label);
+    node_t* node = node_label_search(root, label);
+
+    printf("label found: %p\n", node);
+    stack_t path_stack = {};
+    stack_init(&path_stack, 16, sizeof(stack_elem_t));
+
+    while (node -> parent)
+    {
+        if ((node -> parent) -> right == node) {stack_push(&path_stack, 1);}
+        else if ((node -> parent) -> left == node) {stack_push(&path_stack, 0);}
+
+        node = node -> parent;
+    }
+
+    STACK_DUMP(&path_stack, __func__);
+
+    size_t path_length = path_stack.size;
+
+    printf("Definition of %s:\n", label);
+    for (size_t i = 0; i < path_length; i++)
+    {
+        int direction = 0;
+        stack_pop(&path_stack, &direction);
+        if (direction == 1)
+        {
+            printf("    %s\n", node -> data);
+            node = node -> right;
+        }
+        else
+        {
+            printf("Not %s\n", node -> data);
+            node = node -> left;
+        }
+    }
+
+    return 0;
+}
+
+node_t* node_label_search(node_t* node, char* label)
+{
+    assert(node);
+    assert(label);
+
+    if (strcmp(node -> data, label) == 0) {return node;}
+    else
+    {
+        node_t* ans = NULL;
+        if (node -> right && (ans = node_label_search(node -> right, label)))
+        {
+            printf("label to return: %p", ans);
+            return ans;
+        }
+        if (node -> left && (ans = node_label_search(node -> left, label)))
+        {
+            printf("label to return: %p", ans);
+            return ans;
+        }
+    }
+
+    return NULL;
+}
+
 int read_tree(node_t** node, FILE* stream, FILE* html_stream)
 {
     assert(stream);

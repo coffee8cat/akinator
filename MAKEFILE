@@ -13,8 +13,8 @@ SOURCES_DIR = src
 SOURCES = $(wildcard $(SOURCES_DIR)/*.cpp)
 HEADERS_DIR = headers
 GLOBAL_HEADERS = ..\headers
-LIBS = ..\libs\my_stack
-LIB_SRC = ..\libs\my_stack\my_stack.cpp
+LIBS = libs\my_stack
+LIB_SRC = libs\my_stack\my_stack.cpp
 
 BUILD_DIR = build
 OBJ_DIR = obj
@@ -45,7 +45,7 @@ clean:
 	rm $(OBJ_DIR)
 
 create_obj:
-	$(CC) $(SOURCES) -c -I$(HEADERS_DIR) -D$(DEBUG) $(CFLAGS)
+	$(CC) $(SOURCES)  $(LIB_SRC) -c -I$(HEADERS_DIR) -I$(LIBS) -D$(DEBUG) $(CFLAGS)
 	mv *.o $(OBJ_DIR)
 
 linkage:
