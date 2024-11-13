@@ -29,6 +29,8 @@ int add_node(node_t** temp);
 
 int give_label_def(node_t* root);
 int compare(node_t* root);
+int print_similar_features(node_t** node, stack_t* path_stack1, stack_t* path_stack2);
+int print_features(node_t* node, stack_t* path_stack);
 
 int get_path(node_t* node, stack_t* path_stack);
 node_t* node_label_search(node_t* node, char* label);

@@ -237,20 +237,63 @@ int compare(node_t* root)
     printf("\n%s and %s similarities:\n", label1, label2);
 
     node_t* node = root;
+
+    print_similar_features(&node, &path_stack1, &path_stack2);
+
+    node_t* node_copy = node;
+
+    printf("%s different features:\n", label1);
+    print_features(node, &path_stack1);
+    printf("%s different features:\n", label2);
+    print_features(node_copy, &path_stack2);
+
+    return 0;
+}
+
+int print_similar_features(node_t** node, stack_t* path_stack1, stack_t* path_stack2)
+{
+    assert(node);
+    assert(path_stack1);
+    assert(path_stack2);
+
     int direction1 = 0;
     int direction2 = 0;
-    while (path_stack1.size > 0 && path_stack2.size > 0)
+    while (path_stack1 -> size > 0 && path_stack2 -> size > 0)
     {
-        stack_pop(&path_stack1, &direction1);
-        stack_pop(&path_stack2, &direction2);
+        stack_pop(path_stack1, &direction1);
+        stack_pop(path_stack2, &direction2);
         if (direction1 != direction2)
         {
-            stack_push(&path_stack1, direction1);
-            stack_push(&path_stack2, direction2);
+            stack_push(path_stack1, direction1);
+            stack_push(path_stack2, direction2);
             break;
         }
         if (direction1 == 1)
         {
+            printf("    %s\n", (*node) -> data);
+            (*node) = (*node) -> right;
+        }
+        else
+        {
+            printf("Not %s\n", (*node) -> data);
+            (*node) = (*node) -> left;
+        }
+    }
+
+    return 0;
+}
+
+int print_features(node_t* node, stack_t* path_stack)
+{
+    assert(node);
+    assert(path_stack);
+
+    int direction = 0;
+    while (path_stack -> size > 0)
+    {
+        stack_pop(path_stack, &direction);
+        if (direction == 1)
+        {
             printf("    %s\n", node -> data);
             node = node -> right;
         }
@@ -258,39 +301,6 @@ int compare(node_t* root)
         {
             printf("Not %s\n", node -> data);
             node = node -> left;
-        }
-    }
-    node_t* node_copy = node;
-
-    printf("%s different features:\n", label1);
-    while (path_stack1.size > 0)
-    {
-        stack_pop(&path_stack1, &direction1);
-        if (direction1 == 1)
-        {
-            printf("    %s\n", node -> data);
-            node = node -> right;
-        }
-        else
-        {
-            printf("Not %s\n", node -> data);
-            node = node -> left;
-        }
-    }
-
-    printf("%s different features:\n", label2);
-    while (path_stack2.size > 0)
-    {
-        stack_pop(&path_stack2, &direction2);
-        if (direction2 == 1)
-        {
-            printf("    %s\n", node_copy -> data);
-            node_copy = node_copy -> right;
-        }
-        else
-        {
-            printf("Not %s\n", node_copy -> data);
-            node_copy = node_copy -> left;
         }
     }
 

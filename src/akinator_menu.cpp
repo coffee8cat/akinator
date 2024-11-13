@@ -15,6 +15,7 @@ int menu(node_t* root, FILE* html_stream)
             case 'a': { find_node(root, html_stream, root); break;}
             case 'd': { give_label_def(root);   break;}
             case 'c': { compare(root);          break;}
+            case 'g': { tree_dump(root, html_stream, root); break;}
             case 'r':
             {
                 FILE* fp = NULL;
@@ -52,14 +53,15 @@ int menu(node_t* root, FILE* html_stream)
 
 int menu_info()
 {
-    printf("--- MENU ---\n"
+    printf("------ MENU ------\n"
            "Choose option to execute\n"
            "[a] - akinator\n"
            "[d] - give definition for object\n"
            "[c] - compare two objects\n"
            "[r] - read akinator tree from file\n"
            "[s] - save akinator tree as file\n"
-           "[q] - exit\n"
+           "[g] - graph dump for akinator tree\n"
+           "[q] - exit\n\n"
            ">> ");
 }
 
@@ -71,7 +73,8 @@ int choose_stream(int mode, FILE** fp)
         printf("Choose stream:\n"
                "[d] - default stream\n"
                "[c] - write a path to file for stream\n"
-               "[q] - return\n");
+               "[q] - return\n\n"
+               ">> ");
 
         scanf(" %c[^\n]\n", &ans);
         switch (ans)
