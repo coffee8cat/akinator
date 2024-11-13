@@ -30,6 +30,7 @@ node_t* node_label_search(node_t* node, char* label);
 int print_label_def(node_t* node, stack_t* path_stack, char label[32]);
 
 int read_tree(node_t** node, FILE* stream, FILE* html_stream);
+int write_tree(node_t* node, FILE* stream);
 int print_tree(node_t* node, FILE* stream);
 
 int tree_dtor(node_t* node);

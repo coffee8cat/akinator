@@ -2,13 +2,13 @@ digraph
 {
     rankdir=TP
 
-        node0137A138[shape=record,style="rounded,filled",fillcolor="#BF62FC",label="{ ptr: 0137A138 | key: 0 | data: animal| parent: 00000000| { left: 0137A218 | right: 0137A170 }}"];
-    node0137A138 -> node0137A218[color="#0855F0"]
-    node0137A218[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 0137A218 | key: 0 | data: unknown| parent: 0137A138 | { left: 00000000 | right: 00000000 }}"];
-    node0137A138 -> node0137A170[color="#0855F0"]
-    node0137A170[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 0137A170 | key: 0 | data: a cat| parent: 0137A138 | { left: 0137A1E0 | right: 0137A1A8 }}"];
-    node0137A170 -> node0137A1E0[color="#0855F0"]
-    node0137A1E0[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 0137A1E0 | key: 0 | data: fish| parent: 0137A170 | { left: 00000000 | right: 00000000 }}"];
-    node0137A170 -> node0137A1A8[color="#0855F0"]
-    node0137A1A8[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 0137A1A8 | key: 0 | data: poltorashka| parent: 0137A170 | { left: 00000000 | right: 00000000 }}"];
+        node012FA138[shape=record,style="rounded,filled",fillcolor="#BF62FC",label="{ ptr: 012FA138 | key: 0 | data: animal| parent: 00000000| { left: 012FA218 | right: 012FA170 }}"];
+    node012FA138 -> node012FA218[color="#0855F0"]
+    node012FA218[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 012FA218 | key: 0 | data: unknown| parent: 012FA138 | { left: 00000000 | right: 00000000 }}"];
+    node012FA138 -> node012FA170[color="#0855F0"]
+    node012FA170[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 012FA170 | key: 0 | data: a cat| parent: 012FA138 | { left: 012FA1E0 | right: 012FA1A8 }}"];
+    node012FA170 -> node012FA1E0[color="#0855F0"]
+    node012FA1E0[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 012FA1E0 | key: 0 | data: fish| parent: 012FA170 | { left: 00000000 | right: 00000000 }}"];
+    node012FA170 -> node012FA1A8[color="#0855F0"]
+    node012FA1A8[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 012FA1A8 | key: 0 | data: poltorashka| parent: 012FA170 | { left: 00000000 | right: 00000000 }}"];
 }

@@ -15,7 +15,9 @@ int main()
 
     tree_dump(root, html_stream, root);
 
-    compare(root);
+    //compare(root);
+    FILE* fpout = fopen("data\\tree1writed.txt", "w");
+    write_tree(root, fpout);
     tree_dtor(root);
 
     return 0;

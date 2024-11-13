@@ -1,0 +1,19 @@
+{
+	"animal"
+	yes:
+	{
+		"a cat"
+		yes:
+		{
+			"poltorashka"
+		}
+		no:
+		{
+			"fish"
+		}
+	}
+	no:
+	{
+		"unknown"
+	}
+}

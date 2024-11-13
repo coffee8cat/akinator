@@ -325,6 +325,29 @@ int read_tree(node_t** node, FILE* stream, FILE* html_stream)
     return 0;
 }
 
+int write_tree(node_t* node, FILE* stream)
+{
+    assert(stream);
+
+    fprintf(stream, "{\"%s\"\n", node -> data);
+
+    if (node -> right)
+    {
+        fprintf(stream, "yes:\n\t");
+        write_tree(node -> right, stream);
+        //fprintf(stream, "\t}");
+    }
+    if (node -> left)
+    {
+        fprintf(stream, "no:\n\t");
+        write_tree(node -> left, stream);
+        //fprintf(stream, "\t}");
+    }
+    fprintf(stream, "}");
+
+    return 0;
+}
+
 int print_tree(node_t* node, FILE* stream)
 {
     assert(stream);
