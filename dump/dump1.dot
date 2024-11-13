@@ -2,9 +2,9 @@ digraph
 {
     rankdir=TP
 
-        node0128A190[shape=record,style="rounded,filled",fillcolor="#BF62FC",label="{ ptr: 0128A190 | key: 0 | data: a cat| parent: 0128A158| { left: 0128A200 | right: 0128A1C8 }}"];
-    node0128A190 -> node0128A200[color="#0855F0"]
-    node0128A200[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 0128A200 | key: 0 | data: fish| parent: 0128A190 | { left: 00000000 | right: 00000000 }}"];
-    node0128A190 -> node0128A1C8[color="#0855F0"]
-    node0128A1C8[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 0128A1C8 | key: 0 | data: poltorashka| parent: 0128A190 | { left: 00000000 | right: 00000000 }}"];
+        node0129A190[shape=record,style="rounded,filled",fillcolor="#BF62FC",label="{ ptr: 0129A190 | key: 0 | data: a cat| parent: 0129A158| { left: 0129A200 | right: 0129A1C8 }}"];
+    node0129A190 -> node0129A200[color="#0855F0"]
+    node0129A200[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 0129A200 | key: 0 | data: fish| parent: 0129A190 | { left: 00000000 | right: 00000000 }}"];
+    node0129A190 -> node0129A1C8[color="#0855F0"]
+    node0129A1C8[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 0129A1C8 | key: 0 | data: poltorashka| parent: 0129A190 | { left: 00000000 | right: 00000000 }}"];
 }

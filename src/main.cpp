@@ -13,21 +13,12 @@ int main()
 
     FILE* fp = fopen("data\\tree1.txt", "r");
     read_tree(&root, fp, html_stream);
-
-    tree_dump(root, html_stream, root);
-
-    //compare(root);
-    FILE* fpout = fopen("data\\tree1writed.txt", "w");
+    fclose(fp);
 
     menu(root, fp, fpout, html_stream);
 
-    //write_tree(root, fpout, 0);
     tree_dtor(root);
-
-    fclose(fp);
-    fclose(fpout);
     fclose(html_stream);
-
 
     return 0;
 }

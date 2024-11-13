@@ -280,14 +280,14 @@ int read_tree(node_t** node, FILE* stream, FILE* html_stream)
     assert(stream);
     char ch = 0;
     fscanf(stream, " %c", &ch);
-    printf("ch: %c\nnode : %p\n", ch, *node);
+    //printf("ch: %c\nnode : %p\n", ch, *node);
     switch (ch)
     {
         case '{':
         {
             char label[32] = {};
             fscanf(stream, " \"%[^\"]\"", label);
-            printf("%s\n", label);
+            //printf("%s\n", label);
             *node = new_node(0, NULL, NULL, label);
             read_tree(node, stream, html_stream);
             break;
@@ -300,7 +300,7 @@ int read_tree(node_t** node, FILE* stream, FILE* html_stream)
 
             char label[32] = {};
             fscanf(stream, " \"%[^\"]\"", label);
-            printf("%s\n", label);
+            //printf("%s\n", label);
             (*node) -> right = new_node(0, NULL, NULL, label);
             ((*node) -> right) -> parent = *node;
 
@@ -314,7 +314,7 @@ int read_tree(node_t** node, FILE* stream, FILE* html_stream)
 
             char label[32] = {};
             fscanf(stream, " \"%[^\"]\"", label);
-            printf("%s\n", label);
+            //printf("%s\n", label);
             (*node) -> left = new_node(0, NULL, NULL, label);
             ((*node) -> left) -> parent = *node;
 
@@ -325,9 +325,7 @@ int read_tree(node_t** node, FILE* stream, FILE* html_stream)
         default:{fprintf(stderr, "Unknown option: %c\n", ch); break;}
     }
 
-
-    tree_dump(*node, html_stream, *node);
-    print_tree(*node, stdout);
+    //print_tree(*node, stdout);
     return 0;
 }
 
@@ -341,7 +339,6 @@ int write_tree(node_t* node, FILE* stream, int depth)
 {
     assert(stream);
 
-    printf("Saving akinator tree...\n");
     TAB_FPRINTF(depth, stream, "{\n");
     TAB_FPRINTF(depth + 1, stream,"\"%s\"\n", node -> data);
 
@@ -349,13 +346,11 @@ int write_tree(node_t* node, FILE* stream, int depth)
     {
         TAB_FPRINTF(depth + 1, stream, "yes:\n");
         write_tree(node -> right, stream, depth + 1);
-        //fprintf(stream, "\t}");
     }
     if (node -> left)
     {
         TAB_FPRINTF(depth + 1, stream, "no:\n");
         write_tree(node -> left, stream, depth + 1);
-        //fprintf(stream, "\t}");
     }
     TAB_FPRINTF(depth, stream, "}\n");
 
