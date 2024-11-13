@@ -1,4 +1,5 @@
 #include "akinator.h"
+#include "akinator_menu.h"
 #include "tree_dump.h"
 
 int main()
@@ -17,8 +18,16 @@ int main()
 
     //compare(root);
     FILE* fpout = fopen("data\\tree1writed.txt", "w");
-    write_tree(root, fpout);
+
+    menu(root, fp, fpout, html_stream);
+
+    //write_tree(root, fpout, 0);
     tree_dtor(root);
+
+    fclose(fp);
+    fclose(fpout);
+    fclose(html_stream);
+
 
     return 0;
 }

@@ -111,14 +111,20 @@ int give_label_def(node_t* root)
 {
     assert(root);
 
+    printf("Enter name of object\n");
     char label[32] = {};
     scanf(" %s", label);
     node_t* node = node_label_search(root, label);
+    if (!node)
+    {
+        printf("There is no such object in this database\n");
+        return -1;
+    }
 
     stack_t path_stack = {};
     stack_init(&path_stack, 16, sizeof(stack_elem_t));
     get_path(node, &path_stack);
-    STACK_DUMP(&path_stack, __func__);
+    //STACK_DUMP(&path_stack, __func__);
 
     print_label_def(root, &path_stack, label);
 
@@ -325,28 +331,38 @@ int read_tree(node_t** node, FILE* stream, FILE* html_stream)
     return 0;
 }
 
-int write_tree(node_t* node, FILE* stream)
+#define TAB_FPRINTF(k, stream, ...)      \
+    for (int i = 0; i < (k); i++)    \
+        fprintf(stream, "\t");          \
+    fprintf(stream , __VA_ARGS__);      \
+
+
+int write_tree(node_t* node, FILE* stream, int depth)
 {
     assert(stream);
 
-    fprintf(stream, "{\"%s\"\n", node -> data);
+    printf("Saving akinator tree...\n");
+    TAB_FPRINTF(depth, stream, "{\n");
+    TAB_FPRINTF(depth + 1, stream,"\"%s\"\n", node -> data);
 
     if (node -> right)
     {
-        fprintf(stream, "yes:\n\t");
-        write_tree(node -> right, stream);
+        TAB_FPRINTF(depth + 1, stream, "yes:\n");
+        write_tree(node -> right, stream, depth + 1);
         //fprintf(stream, "\t}");
     }
     if (node -> left)
     {
-        fprintf(stream, "no:\n\t");
-        write_tree(node -> left, stream);
+        TAB_FPRINTF(depth + 1, stream, "no:\n");
+        write_tree(node -> left, stream, depth + 1);
         //fprintf(stream, "\t}");
     }
-    fprintf(stream, "}");
+    TAB_FPRINTF(depth, stream, "}\n");
 
     return 0;
 }
+
+#undef TAB_FPRINTF
 
 int print_tree(node_t* node, FILE* stream)
 {
