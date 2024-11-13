@@ -1,6 +1,6 @@
 #include "akinator_menu.h"
 
-int menu(node_t* root, FILE* stream_in, FILE* stream_out, FILE* html_stream)
+int menu(node_t* root, FILE* html_stream)
 {
     assert(root);
 
@@ -8,10 +8,11 @@ int menu(node_t* root, FILE* stream_in, FILE* stream_out, FILE* html_stream)
     while (ans != 'q')
     {
         menu_info();
-        scanf(" %c[^\n]", &ans);
+        scanf(" %c[^\n]\n", &ans);
+        clean_input_buffer();
         switch (ans)
         {
-            case 'a': { find_node(root, html_stream); break;}
+            case 'a': { find_node(root, html_stream, root); break;}
             case 'd': { give_label_def(root);   break;}
             case 'c': { compare(root);          break;}
             case 'r':
@@ -21,6 +22,7 @@ int menu(node_t* root, FILE* stream_in, FILE* stream_out, FILE* html_stream)
                 if (!fp) {fprintf(stderr, "STREAM ERROR occured before reading tree\n"); break;}
 
                 read_tree (&root,  fp, html_stream);
+                printf("akinator data was read succesfully\n");
                 fclose(fp);
                 break;
             }
@@ -31,13 +33,17 @@ int menu(node_t* root, FILE* stream_in, FILE* stream_out, FILE* html_stream)
                 if (!fp) {fprintf(stderr, "STREAM ERROR occured before saving tree\n"); break;}
 
                 write_tree(root, fp, 0);
+                printf("akinator data was saved succesfully\n");
                 fclose(fp);
                 break;
             }
             case 'q': break;
 
-            default: printf("Error: no such option - [%c](%d)\n", ans, ans);
-                    break;
+            default:
+            {
+                printf("Error: no such option - [%c](%d)\n", ans, ans);
+                break;
+            }
         }
     }
 
@@ -66,7 +72,8 @@ int choose_stream(int mode, FILE** fp)
                "[d] - default stream\n"
                "[c] - write a path to file for stream\n"
                "[q] - return\n");
-        scanf(" %c[^\n]", &ans);
+
+        scanf(" %c[^\n]\n", &ans);
         switch (ans)
         {
             case 'd':
@@ -79,7 +86,8 @@ int choose_stream(int mode, FILE** fp)
             case 'c':
             {
                 printf("Enter path: ");
-                char file_name[32] = {};
+                char file_name[default_str_size] = {};
+                scanf("%s[^\n]\n", &file_name);
                 if (mode == STREAM_OUT) { *fp = fopen(file_name, "w");}
                 if (mode == STREAM_IN)  { *fp = fopen(file_name, "r");}
 

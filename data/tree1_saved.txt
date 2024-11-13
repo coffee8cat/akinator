@@ -5,7 +5,15 @@
 		"a cat"
 		yes:
 		{
-			"poltorashka"
+			"leopard"
+			yes:
+			{
+				"snow"
+			}
+			no:
+			{
+				"poltorashka"
+			}
 		}
 		no:
 		{

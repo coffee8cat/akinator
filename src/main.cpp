@@ -15,7 +15,7 @@ int main()
     read_tree(&root, fp, html_stream);
     fclose(fp);
 
-    menu(root, fp, fpout, html_stream);
+    menu(root, html_stream);
 
     tree_dtor(root);
     fclose(html_stream);
