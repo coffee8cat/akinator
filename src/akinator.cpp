@@ -1,4 +1,4 @@
-#include "bin_tree.h"
+#include "akinator.h"
 #include "tree_dump.h"
 
 node_t* new_node(int key, node_t* left, node_t* right, char* data)
@@ -112,30 +112,63 @@ int give_label_def(node_t* root)
     assert(root);
 
     char label[32] = {};
-    scanf("%s", label);
+    scanf(" %s", label);
     node_t* node = node_label_search(root, label);
 
-    printf("label found: %p\n", node);
     stack_t path_stack = {};
     stack_init(&path_stack, 16, sizeof(stack_elem_t));
+    get_path(node, &path_stack);
+    STACK_DUMP(&path_stack, __func__);
+
+    print_label_def(root, &path_stack, label);
+
+    return 0;
+}
+
+int get_path(node_t* node, stack_t* path_stack)
+{
+    assert(node);
+    assert(path_stack);
 
     while (node -> parent)
     {
-        if ((node -> parent) -> right == node) {stack_push(&path_stack, 1);}
-        else if ((node -> parent) -> left == node) {stack_push(&path_stack, 0);}
+        if ((node -> parent) -> right == node)     {stack_push(path_stack, 1);}
+        else if ((node -> parent) -> left == node) {stack_push(path_stack, 0);}
 
         node = node -> parent;
     }
 
-    STACK_DUMP(&path_stack, __func__);
+    return 0;
+}
 
-    size_t path_length = path_stack.size;
+node_t* node_label_search(node_t* node, char* label)
+{
+    assert(node);
+    assert(label);
+
+    if (strcmp(node -> data, label) == 0) {return node;}
+    else
+    {
+        node_t* ans = NULL;
+        if (node -> right && (ans = node_label_search(node -> right, label))) {return ans;}
+        if (node -> left  && (ans = node_label_search(node -> left, label)))  {return ans;}
+    }
+
+    return NULL;
+}
+
+int print_label_def(node_t* node, stack_t* path_stack, char label[32])
+{
+    assert(node);
+    assert(path_stack);
+
+    size_t path_length = path_stack -> size;
+    int direction = 0;
 
     printf("Definition of %s:\n", label);
     for (size_t i = 0; i < path_length; i++)
     {
-        int direction = 0;
-        stack_pop(&path_stack, &direction);
+        stack_pop(path_stack, &direction);
         if (direction == 1)
         {
             printf("    %s\n", node -> data);
@@ -151,28 +184,89 @@ int give_label_def(node_t* root)
     return 0;
 }
 
-node_t* node_label_search(node_t* node, char* label)
+int compare(node_t* root)
 {
-    assert(node);
-    assert(label);
+    assert(root);
 
-    if (strcmp(node -> data, label) == 0) {return node;}
-    else
+    printf("Enter first label: ");
+    char label1[32] = {};
+    scanf(" %s", label1);
+
+    printf("Enter second label: ");
+    char label2[32] = {};
+    scanf(" %s", label2);
+
+    node_t* node1 = node_label_search(root, label1);
+    stack_t path_stack1 = {};
+    stack_init(&path_stack1, 16, sizeof(stack_elem_t));
+    get_path(node1, &path_stack1);
+
+    node_t* node2 = node_label_search(root, label2);
+    stack_t path_stack2 = {};
+    stack_init(&path_stack2, 16, sizeof(stack_elem_t));
+    get_path(node2, &path_stack2);
+
+    printf("\n%s and %s similarities:\n", label1, label2);
+
+    node_t* node = root;
+    int direction1 = 0;
+    int direction2 = 0;
+    while (path_stack1.size > 0 && path_stack2.size > 0)
     {
-        node_t* ans = NULL;
-        if (node -> right && (ans = node_label_search(node -> right, label)))
+        stack_pop(&path_stack1, &direction1);
+        stack_pop(&path_stack2, &direction2);
+        if (direction1 != direction2)
         {
-            printf("label to return: %p", ans);
-            return ans;
+            stack_push(&path_stack1, direction1);
+            stack_push(&path_stack2, direction2);
+            break;
         }
-        if (node -> left && (ans = node_label_search(node -> left, label)))
+        if (direction1 == 1)
         {
-            printf("label to return: %p", ans);
-            return ans;
+            printf("    %s\n", node -> data);
+            node = node -> right;
+        }
+        else
+        {
+            printf("Not %s\n", node -> data);
+            node = node -> left;
+        }
+    }
+    node_t* node_copy = node;
+
+    printf("%s different features:\n", label1);
+    while (path_stack1.size > 0)
+    {
+        stack_pop(&path_stack1, &direction1);
+        if (direction1 == 1)
+        {
+            printf("    %s\n", node -> data);
+            node = node -> right;
+        }
+        else
+        {
+            printf("Not %s\n", node -> data);
+            node = node -> left;
         }
     }
 
-    return NULL;
+    printf("%s different features:\n", label2);
+    while (path_stack2.size > 0)
+    {
+        stack_pop(&path_stack2, &direction2);
+        if (direction2 == 1)
+        {
+            printf("    %s\n", node_copy -> data);
+            node_copy = node_copy -> right;
+        }
+        else
+        {
+            printf("Not %s\n", node_copy -> data);
+            node_copy = node_copy -> left;
+        }
+    }
+
+    return 0;
 }
 
 int read_tree(node_t** node, FILE* stream, FILE* html_stream)

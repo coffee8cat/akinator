@@ -1,4 +1,4 @@
-#include "bin_tree.h"
+#include "akinator.h"
 #include "tree_dump.h"
 
 int main()
@@ -15,8 +15,7 @@ int main()
 
     tree_dump(root, html_stream, root);
 
-    //find_node(root, html_stream);
-    give_label_def(root);
+    compare(root);
     tree_dtor(root);
 
     return 0;

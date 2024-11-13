@@ -7,7 +7,7 @@
 #include <string.h>
 #include <assert.h>
 
-#include "bin_tree.h"
+#include "akinator.h"
 
 FILE* prepare_to_dump();
 int tree_dump(node_t* root, FILE* html_stream, node_t* curr);

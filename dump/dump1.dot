@@ -2,9 +2,9 @@ digraph
 {
     rankdir=TP
 
-        node0146A170[shape=record,style="rounded,filled",fillcolor="#BF62FC",label="{ ptr: 0146A170 | key: 0 | data: a cat| parent: 0146A138| { left: 0146A1E0 | right: 0146A1A8 }}"];
-    node0146A170 -> node0146A1E0[color="#0855F0"]
-    node0146A1E0[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 0146A1E0 | key: 0 | data: fish| parent: 0146A170 | { left: 00000000 | right: 00000000 }}"];
-    node0146A170 -> node0146A1A8[color="#0855F0"]
-    node0146A1A8[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 0146A1A8 | key: 0 | data: poltorashka| parent: 0146A170 | { left: 00000000 | right: 00000000 }}"];
+        node0137A170[shape=record,style="rounded,filled",fillcolor="#BF62FC",label="{ ptr: 0137A170 | key: 0 | data: a cat| parent: 0137A138| { left: 0137A1E0 | right: 0137A1A8 }}"];
+    node0137A170 -> node0137A1E0[color="#0855F0"]
+    node0137A1E0[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 0137A1E0 | key: 0 | data: fish| parent: 0137A170 | { left: 00000000 | right: 00000000 }}"];
+    node0137A170 -> node0137A1A8[color="#0855F0"]
+    node0137A1A8[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 0137A1A8 | key: 0 | data: poltorashka| parent: 0137A170 | { left: 00000000 | right: 00000000 }}"];
 }
