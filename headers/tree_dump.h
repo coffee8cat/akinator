@@ -1,7 +1,6 @@
 #ifndef _TREE_DOT_DUMP_H__
 #define _TREE_DOT_DUMP_H__
 
-#include <TXLib.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

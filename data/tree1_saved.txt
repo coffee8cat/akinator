@@ -5,23 +5,43 @@
 		"a cat"
 		yes:
 		{
-			"leopard"
+			"big"
 			yes:
 			{
-				"snow"
+				"leopard"
 			}
 			no:
 			{
-				"poltorashka"
+				"poltorashka askjbg"
 			}
 		}
 		no:
 		{
-			"fish"
+			"has feet
+"
+			yes:
+			{
+				"elephant
+"
+			}
+			no:
+			{
+				"fish"
+			}
 		}
 	}
 	no:
 	{
-		"unknown"
+		"i know it
+"
+		yes:
+		{
+			"something else
+"
+		}
+		no:
+		{
+			"unknown"
+		}
 	}
 }

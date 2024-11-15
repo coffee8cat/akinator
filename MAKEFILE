@@ -1,3 +1,5 @@
+SHELL=C:/Windows/System32/cmd.exe
+
 CC = g++
 
 CFLAGS = -Wformat=2 -Wshadow -Winit-self -Wredundant-decls -Wcast-align -Wundef -Wfloat-equal \
@@ -19,7 +21,7 @@ LIB_SRC = libs\my_stack\my_stack.cpp
 BUILD_DIR = build
 OBJ_DIR = obj
 OBJECTS = $(wildcard $(OBJ_DIR)/*.o)
-EXECUTABLE = bintree.exe
+EXECUTABLE = akinator.exe
 
 all: $(SOURCES) $(BUILD_DIR)
 	$(CC) $(SOURCES) -o $(BUILD_DIR)/$(EXECUTABLE) -I$(HEADERS_DIR) -D$(DEBUG) $(CFLAGS)

@@ -12,10 +12,12 @@ int main()
     if (!root) {return -1;}
 
     FILE* fp = fopen("data\\tree1.txt", "r");
+    if (!fp) { return -1; }
+
     read_tree(&root, fp, html_stream);
     fclose(fp);
 
-    menu(root, html_stream);
+    run_game(root, html_stream); // executeGame, runGame
 
     tree_dtor(root);
     fclose(html_stream);

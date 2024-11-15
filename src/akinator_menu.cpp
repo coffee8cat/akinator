@@ -1,8 +1,9 @@
 #include "akinator_menu.h"
 
-int menu(node_t* root, FILE* html_stream)
+int run_game(node_t* root, FILE* html_stream)
 {
     assert(root);
+    assert(html_stream);
 
     char ans = 0;
     while (ans != 'q')

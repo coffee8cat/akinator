@@ -17,34 +17,35 @@ node_t* new_node(int key, node_t* left, node_t* right, char* data)
     return node;
 }
 
-int fix_parents(node_t* node)
+void fix_parents(node_t* node)
 {
     assert(node);
     if (node -> right) {(node -> right) -> parent = node;}
     if (node -> left)  {(node -> left) ->  parent = node;}
-
-    return 0;
 }
 
 int find_node(node_t* node, FILE* html_stream, node_t* root)
 {
+    assert(node);
+    assert(html_stream);
+    assert(root);
+
     fprintf(stdout, "%s?\n", node -> data);
 
     char ans = 0;
-    node_t** temp = NULL;
-    get_next_node(&temp, node, &ans);
+    node_t** temp = get_next_node(node, &ans); // return node
 
     if (*temp)
     {
         if ((*temp) -> left == NULL && ((*temp) -> right) == NULL)
         {
             printf("It is %s, right?\n", (*temp) -> data);
-            get_ans(&ans);
+            ans = get_ans();
 
             if (ans == 'N')
             {
-                add_node(temp);
-                printf("An object was added succesfully\n");
+                if (add_node(temp) == 0) { printf("An object was added succesfully\n"); }
+                else               { fprintf(stderr, "ERROR: Adding object failed\n");}
                 tree_dump(root, html_stream, node);
             }
             else { printf("Object: %s\nAkinator end\n", (*temp)->data);}
@@ -60,38 +61,38 @@ int find_node(node_t* node, FILE* html_stream, node_t* root)
     return -1;
 }
 
-int get_next_node(node_t*** temp, node_t* node, char* ans)
+node_t** get_next_node(node_t* node, char* ans)
 {
     assert(node);
-
-    while (true)
-    {
-        fscanf(stdin, "%c", ans);
-        clean_input_buffer();
-        if      (*ans == 'Y') { *temp = &node -> right; break; }
-        else if (*ans == 'N') { *temp = &node -> left;  break; }
-        else {printf("Unknown symbol: %c(%d)\nOnly Y and N are accepted as answers\n", *ans, *ans);}
-    }
-
-    return 0;
-}
-
-int get_ans(char* ans)
-{
     assert(ans);
 
     while (true)
     {
         fscanf(stdin, "%c", ans);
         clean_input_buffer();
+        if      (*ans == 'Y') { return &node -> right;}
+        else if (*ans == 'N') { return &node -> left; }
+        else {printf("Unknown symbol: %c(%d)\nOnly Y and N are accepted as answers\n", *ans, *ans);}
+    }
 
-        if (!(*ans == 'Y' || *ans == 'N'))
-            printf("Unknown symbol: %c(%d)\nOnly Y and N are accepted as answers\n", *ans, *ans);
+    return NULL;
+}
+
+char get_ans()
+{
+    char ans = 0;
+    while (true)
+    {
+        fscanf(stdin, "%c", &ans);
+        clean_input_buffer();
+
+        if (!(ans == 'Y' || ans == 'N'))
+            printf("Unknown symbol: %c(%d)\nOnly Y and N are accepted as answers\n", ans, ans);
         else
             break;
     }
 
-    return 0;
+    return ans;
 }
 
 int add_node(node_t** temp)
@@ -100,17 +101,20 @@ int add_node(node_t** temp)
 
     printf("What was it?\n");
     char new_label[default_str_size] = {};
-    scanf(" %s[^\n]\n", new_label);
+    fgets(new_label, default_str_size, stdin);
 
     printf("what is the difference between %s and %s?(Enter the question)\n"
             "(True for %s, false for %s)\n",
             new_label, (*temp) -> data, new_label, (*temp) -> data);
 
     char question[default_str_size] = {};
-    scanf(" %s[^\n]\n", question);
+    fgets(question, default_str_size, stdin);
 
     node_t* question_node = new_node(0, NULL, NULL, question);
     node_t* label_node    = new_node(0, NULL, NULL, new_label);
+
+    if (!question_node) { return -1;}
+    if (!label_node)    { return -1;}
 
     question_node -> right = label_node;
     question_node -> left  = *temp;
@@ -131,7 +135,7 @@ int give_label_def(node_t* root)
 
     printf("Enter name of object\n");
     char label[default_str_size] = {};
-    scanf(" %s", label);
+    scanf("%s[^\n]\n", label);
     node_t* node = node_label_search(root, label);
     if (!node)
     {
@@ -149,7 +153,7 @@ int give_label_def(node_t* root)
     return 0;
 }
 
-int get_path(node_t* node, stack_t* path_stack)
+void get_path(node_t* node, stack_t* path_stack)
 {
     assert(node);
     assert(path_stack);
@@ -161,8 +165,6 @@ int get_path(node_t* node, stack_t* path_stack)
 
         node = node -> parent;
     }
-
-    return 0;
 }
 
 node_t* node_label_search(node_t* node, char* label)
@@ -174,8 +176,8 @@ node_t* node_label_search(node_t* node, char* label)
     else
     {
         node_t* ans = NULL;
-        if (node -> right && (ans = node_label_search(node -> right, label))) {return ans;}
-        if (node -> left  && (ans = node_label_search(node -> left, label)))  {return ans;}
+        if (node -> right && (ans = node_label_search(node -> right, label))) { return ans;}
+        if (node -> left  && (ans = node_label_search(node -> left, label)))  { return ans;}
     }
 
     return NULL;
@@ -185,6 +187,7 @@ int print_label_def(node_t* node, stack_t* path_stack, char label[default_str_si
 {
     assert(node);
     assert(path_stack);
+    assert(label);
 
     size_t path_length = path_stack -> size;
     int direction = 0;
@@ -214,11 +217,11 @@ int compare(node_t* root)
 
     printf("Enter first label: ");
     char label1[default_str_size] = {};
-    scanf(" %s", label1);
+    scanf("%s[^\n]\n", label1);
 
     printf("Enter second label: ");
     char label2[default_str_size] = {};
-    scanf(" %s", label2);
+    scanf("%s[^\n]\n", label2);
 
     node_t* node1 = node_label_search(root, label1);
     node_t* node2 = node_label_search(root, label2);
@@ -250,7 +253,7 @@ int compare(node_t* root)
     return 0;
 }
 
-int print_similar_features(node_t** node, stack_t* path_stack1, stack_t* path_stack2)
+void print_similar_features(node_t** node, stack_t* path_stack1, stack_t* path_stack2)
 {
     assert(node);
     assert(path_stack1);
@@ -279,11 +282,9 @@ int print_similar_features(node_t** node, stack_t* path_stack1, stack_t* path_st
             (*node) = (*node) -> left;
         }
     }
-
-    return 0;
 }
 
-int print_features(node_t* node, stack_t* path_stack)
+void print_features(node_t* node, stack_t* path_stack)
 {
     assert(node);
     assert(path_stack);
@@ -303,51 +304,38 @@ int print_features(node_t* node, stack_t* path_stack)
             node = node -> left;
         }
     }
-
-    return 0;
 }
 
 int read_tree(node_t** node, FILE* stream, FILE* html_stream)
 {
+    assert(node);
     assert(stream);
+    assert(html_stream);
+
     char ch = 0;
+    node_t* temp = NULL;
     fscanf(stream, " %c", &ch);
-    //printf("ch: %c\nnode : %p\n", ch, *node);
     switch (ch)
     {
         case '{':
         {
-            char label[default_str_size] = {};
-            fscanf(stream, " \"%[^\"]\"", label);
-            //printf("%s\n", label);
-            *node = new_node(0, NULL, NULL, label);
+            *node = read_node(stream);
             read_tree(node, stream, html_stream);
             break;
         }
         case 'y':
         {
-            char temp = 0;
-            while(temp != '{')
-                fscanf(stream, "%c", &temp);
+            skip_until('{', stream);
 
-            char label[default_str_size] = {};
-            fscanf(stream, " \"%[^\"]\"", label);
-            //printf("%s\n", label);
-            (*node) -> right = new_node(0, NULL, NULL, label);
+            if (((*node) -> right = read_node(stream)) == NULL) { fprintf(stderr, "ERROR: Uploading tree failed\n"); return -1;}
             ((*node) -> right) -> parent = *node;
 
             read_tree(&((*node) -> right), stream, html_stream);
         }
         case 'n':
         {
-            char temp = 0;
-            while(temp != '{')
-                fscanf(stream, "%c", &temp);
-
-            char label[default_str_size] = {};
-            fscanf(stream, " \"%[^\"]\"", label);
-            //printf("%s\n", label);
-            (*node) -> left = new_node(0, NULL, NULL, label);
+            skip_until('{', stream);
+            if (((*node) -> left = read_node(stream)) == NULL) { fprintf(stderr, "ERROR: Uploading tree failed\n"); return -1;}
             ((*node) -> left) -> parent = *node;
 
             read_tree(&((*node) -> left), stream, html_stream);
@@ -356,9 +344,26 @@ int read_tree(node_t** node, FILE* stream, FILE* html_stream)
         case '}': {return 0;}
         default:{fprintf(stderr, "Unknown option: %c\n", ch); break;}
     }
-
-    //print_tree(*node, stdout);
     return 0;
+}
+
+node_t* read_node(FILE* stream)
+{
+    assert(stream);
+
+    char label[default_str_size] = {};
+    fscanf(stream, " \"%[^\"]\"", label);
+
+    return new_node(0, NULL, NULL, label);
+}
+
+void skip_until(char ch, FILE* stream)
+{
+    assert(stream);
+
+    char temp = 0;
+    while(temp != ch)
+        fscanf(stream, "%c", &temp);
 }
 
 #define TAB_FPRINTF(k, stream, ...)      \
@@ -370,6 +375,7 @@ int read_tree(node_t** node, FILE* stream, FILE* html_stream)
 int write_tree(node_t* node, FILE* stream, int depth)
 {
     assert(stream);
+    assert(node);
 
     TAB_FPRINTF(depth, stream, "{\n");
     TAB_FPRINTF(depth + 1, stream,"\"%s\"\n", node -> data);
@@ -394,13 +400,13 @@ int write_tree(node_t* node, FILE* stream, int depth)
 int print_tree(node_t* node, FILE* stream)
 {
     assert(stream);
-
-    if (!node) { return 1; }
+    if (!node) { return 0; }
 
     fprintf(stream, "{");
     fprintf(stream, "%s", node -> data);
-    if (node -> left)  { print_tree(node -> left, stream);  }
-    if (node -> right) { print_tree(node -> right, stream); }
+
+    print_tree(node -> left, stream);
+    print_tree(node -> right, stream);
     fprintf(stream, "}");
 
     return 0;
@@ -408,9 +414,9 @@ int print_tree(node_t* node, FILE* stream)
 
 int tree_dtor(node_t* node)
 {
-    if (!node) { return 1; }
-    if (node -> left)  { tree_dtor(node -> left);  }
-    if (node -> right) { tree_dtor(node -> right); }
+    if (!node) { return 0; }
+    tree_dtor(node -> left);
+    tree_dtor(node -> right);
     free(node);
 
     return 0;
