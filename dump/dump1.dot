@@ -2,23 +2,17 @@ digraph
 {
     rankdir=TP
 
-        node007E0CD8[shape=record,style="rounded,filled",fillcolor="#BF62FC",label="{ ptr: 007E0CD8 | key: 0 | data: animal| parent: 00000000| { left: 007E0E60 | right: 007E0D10 }}"];
-    node007E0CD8 -> node007E0E60[color="#0855F0"]
-    node007E0E60[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 007E0E60 | key: 0 | data: i know it
-| parent: 007E0CD8 | { left: 007E0E28 | right: 007E0E98 }}"];
-    node007E0E60 -> node007E0E28[color="#0855F0"]
-    node007E0E28[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 007E0E28 | key: 0 | data: unknown| parent: 007E0E60 | { left: 00000000 | right: 00000000 }}"];
-    node007E0E60 -> node007E0E98[color="#0855F0"]
-    node007E0E98[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 007E0E98 | key: 0 | data: something else
-| parent: 007E0E60 | { left: 00000000 | right: 00000000 }}"];
-    node007E0CD8 -> node007E0D10[color="#0855F0"]
-    node007E0D10[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 007E0D10 | key: 0 | data: a cat| parent: 007E0CD8 | { left: 007E0DF0 | right: 007E0D48 }}"];
-    node007E0D10 -> node007E0DF0[color="#0855F0"]
-    node007E0DF0[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 007E0DF0 | key: 0 | data: fish| parent: 007E0D10 | { left: 00000000 | right: 00000000 }}"];
-    node007E0D10 -> node007E0D48[color="#0855F0"]
-    node007E0D48[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 007E0D48 | key: 0 | data: big| parent: 007E0D10 | { left: 007E0DB8 | right: 007E0D80 }}"];
-    node007E0D48 -> node007E0DB8[color="#0855F0"]
-    node007E0DB8[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 007E0DB8 | key: 0 | data: poltorashka askjbg| parent: 007E0D48 | { left: 00000000 | right: 00000000 }}"];
-    node007E0D48 -> node007E0D80[color="#0855F0"]
-    node007E0D80[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 007E0D80 | key: 0 | data: leopard| parent: 007E0D48 | { left: 00000000 | right: 00000000 }}"];
+        node00790D90[shape=record,style="rounded,filled",fillcolor="#BF62FC",label="{ ptr: 00790D90 | key: 0 | data: animal| parent: 00000000| { left: 00790EE0 | right: 00790DC8 }}"];
+    node00790D90 -> node00790EE0[color="#0855F0"]
+    node00790EE0[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 00790EE0 | key: 0 | data: unknown| parent: 00790D90 | { left: 00000000 | right: 00000000 }}"];
+    node00790D90 -> node00790DC8[color="#0855F0"]
+    node00790DC8[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 00790DC8 | key: 0 | data: a cat| parent: 00790D90 | { left: 00790EA8 | right: 00790E00 }}"];
+    node00790DC8 -> node00790EA8[color="#0855F0"]
+    node00790EA8[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 00790EA8 | key: 0 | data: fish| parent: 00790DC8 | { left: 00000000 | right: 00000000 }}"];
+    node00790DC8 -> node00790E00[color="#0855F0"]
+    node00790E00[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 00790E00 | key: 0 | data: big| parent: 00790DC8 | { left: 00790E70 | right: 00790E38 }}"];
+    node00790E00 -> node00790E70[color="#0855F0"]
+    node00790E70[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 00790E70 | key: 0 | data: poltorashka askjbg| parent: 00790E00 | { left: 00000000 | right: 00000000 }}"];
+    node00790E00 -> node00790E38[color="#0855F0"]
+    node00790E38[shape=record,style="rounded,filled",fillcolor="#39CCCC",label="{ ptr: 00790E38 | key: 0 | data: leopard| parent: 00790E00 | { left: 00000000 | right: 00000000 }}"];
 }
