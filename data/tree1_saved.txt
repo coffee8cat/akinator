@@ -17,26 +17,16 @@
 		}
 		no:
 		{
-			"has feet
-"
-			yes:
-			{
-				"elephant
-"
-			}
-			no:
-			{
-				"fish"
-			}
+			"fish"
 		}
 	}
 	no:
 	{
-		"i know it
+		"Could be eaten
 "
 		yes:
 		{
-			"something else
+			"melon
 "
 		}
 		no:

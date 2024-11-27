@@ -95,20 +95,24 @@ char get_ans()
     return ans;
 }
 
+#define FGETS(question, default_str_size, stdin)                \
+    fgets(question, default_str_size, stdin);                   \
+    if (char* end = strchr(question, '\n')) { *end = '\0'; }    \
+
 int add_node(node_t** temp)
 {
     assert(temp);
 
     printf("What was it?\n");
     char new_label[default_str_size] = {};
-    fgets(new_label, default_str_size, stdin);
+    FGETS(new_label, default_str_size, stdin)
 
     printf("what is the difference between %s and %s?(Enter the question)\n"
             "(True for %s, false for %s)\n",
             new_label, (*temp) -> data, new_label, (*temp) -> data);
 
     char question[default_str_size] = {};
-    fgets(question, default_str_size, stdin);
+    FGETS(question, default_str_size, stdin)
 
     node_t* question_node = new_node(0, NULL, NULL, question);
     node_t* label_node    = new_node(0, NULL, NULL, new_label);
@@ -247,7 +251,7 @@ int compare(node_t* root)
 
 //==PRINT FEATURES====================================================================================//
 
-    printf("\n%s and %s similarities:\n", label1, label2);
+    printf("\n%s and %s are both ", label1, label2);
 
     node_t* node = root;
 
@@ -255,9 +259,9 @@ int compare(node_t* root)
 
     node_t* node_copy = node;
 
-    printf("%s different features:\n", label1);
+    printf("But %s ", label1);
     print_features(&node, &path_stack1);
-    printf("%s different features:\n", label2);
+    printf("And %s ", label2);
     print_features(&node_copy, &path_stack2);
 
     return 0;
@@ -301,15 +305,16 @@ void print_features(node_t** node, stack_t* path_stack)
         stack_pop(path_stack, &direction);
         if (direction == 1)
         {
-            printf("    %s\n", (*node) -> data);
+            printf(" %s, ", (*node) -> data);
             (*node) = (*node) -> right;
         }
         else
         {
-            printf("Not %s\n", (*node) -> data);
+            printf("not %s, ", (*node) -> data);
             (*node) = (*node) -> left;
         }
     }
+    printf("\n");
 }
 
 int read_tree(node_t** node, FILE* stream, FILE* html_stream)
